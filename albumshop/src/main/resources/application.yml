@@ -1,0 +1,25 @@
+# Spring Boot 配置文件
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver # 数据库驱动类
+    url: jdbc:mysql://localhost:3306/Albumshop # 数据库连接 URL，包括数据库名称
+    username: root # 数据库用户名
+    password: Ab*83327000 # 数据库密码
+  web:
+    resources:
+      add-mappings: true # 是否启用静态资源映射
+      static-locations: # 静态资源的位置
+        - classpath:/static/images/ # 项目内部的静态资源路径
+        - file:/images/ # 文件系统中的静态资源路径
+  servlet:
+    multipart: # 文件上传配置
+      enabled: true # 启用文件上传
+      max-file-size: 5MB # 单个文件的最大大小
+      max-request-size: 10MB # 整个请求的最大大小
+
+mybatis-plus: # MyBatis-Plus 配置
+  mapper-locations: classpath:/com/xiaorui/mapper/*.xml # Mapper XML 文件的路径
+  type-aliases-package: com.xiaorui.beans # TypeAlias 包路径，用于简化实体类的引用
+
+image:
+  upload-dir: src/main/resources/static/images/ # 图片上传的保存路径，保存到项目的静态资源目录

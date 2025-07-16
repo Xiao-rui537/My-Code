@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaorui.mapper.AlbumMapper">
+
+    <!-- 增 -->
+    <insert id="addAlbum" parameterType="com.xiaorui.beans.Album" useGeneratedKeys="true" keyProperty="album_id">
+        INSERT INTO album
+        (album_name, album_name_tran, album_title, album_category_id, album_release_day,
+         album_price, album_sale, album_singer, album_cover, album_introduction, album_song,
+         album_song_name, album_language)
+        VALUES
+            (#{album_name}, #{album_name_tran}, #{album_title}, #{album_category_id}, #{album_release_day},
+             #{album_price}, #{album_sale}, #{album_singer}, #{album_cover}, #{album_introduction}, #{album_song},
+             #{album_song_name}, #{album_language})
+    </insert>
+
+    <!-- 改 -->
+    <update id="modifyAlbum" parameterType="com.xiaorui.beans.Album">
+        UPDATE album
+        <set>
+            album_name=#{album_name}, album_name_tran=#{album_name_tran}, album_title=#{album_title},
+            album_category_id=#{album_category_id}, album_release_day=#{album_release_day},
+            album_price=#{album_price}, album_sale=#{album_sale}, album_singer=#{album_singer},
+            album_cover=#{album_cover}, album_introduction=#{album_introduction},
+            album_song=#{album_song}, album_song_name=#{album_song_name}, album_language=#{album_language}
+        </set>
+        <where>
+            album_id=#{album_id}
+        </where>
+    </update>
+
+    <!-- 删 -->
+    <delete id="removeAlbum" parameterType="java.lang.Integer">
+        DELETE FROM album
+        <where>
+            album_id=#{album_id}
+        </where>
+    </delete>
+
+    <!-- 查 -->
+    <select id="queryAlbums" resultType="com.xiaorui.beans.Album">
+        SELECT
+            a.album_id,
+            a.album_name,
+            a.album_name_tran,
+            a.album_title,
+            a.album_category_id,
+            a.album_release_day,
+            a.album_price,
+            a.album_sale,
+            a.album_singer,
+            a.album_cover,
+            a.album_introduction,
+            a.album_song,
+            a.album_song_name,
+            a.album_language
+        FROM album a
+    </select>
+
+    <select id="queryCountOfAlbums" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM album;
+    </select>
+
+    <select id="queryAlbumsByKeyword" resultType="com.xiaorui.beans.Album">
+        SELECT
+            a.album_id,
+            a.album_name,
+            a.album_name_tran,
+            a.album_title,
+            a.album_category_id,
+            a.album_release_day,
+            a.album_price,
+            a.album_sale,
+            a.album_singer,
+            a.album_cover,
+            a.album_introduction,
+            a.album_song,
+            a.album_song_name,
+            a.album_language
+        FROM album a
+        WHERE a.album_name LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <select id="queryAlbumsBySinger" resultType="com.xiaorui.beans.Album" parameterType="java.lang.String">
+        SELECT
+            a.album_id,
+            a.album_name,
+            a.album_name_tran,
+            a.album_title,
+            a.album_category_id,
+            a.album_release_day,
+            a.album_price,
+            a.album_sale,
+            a.album_singer,
+            a.album_cover,
+            a.album_introduction,
+            a.album_song,
+            a.album_song_name,
+            a.album_language
+        FROM album a
+        WHERE a.album_singer LIKE CONCAT('%', #{value}, '%')
+    </select>
+
+    <!-- 根据专辑ID查询专辑 -->
+    <select id="queryAlbumById" resultType="com.xiaorui.beans.Album">
+        SELECT * FROM album a
+        WHERE a.album_id = #{id}
+        LIMIT 1;
+    </select>
+    <select id="queryAlbumBySinger" resultType="com.xiaorui.beans.Album">
+        SELECT * FROM album a
+        WHERE a.album_singer = #{singer}
+    </select>
+
+    <!-- 查询多个专辑的信息，通过专辑ID列表 -->
+    <select id="findAlbumsByIds" resultType="com.xiaorui.beans.Album">
+        SELECT
+        album_id,
+        album_name,
+        album_singer,
+        album_title,
+        album_price,
+        album_sale,
+        album_cover,
+        album_language,
+        album_introduction,
+        album_song,
+        album_release_day AS releaseDate
+        FROM
+        album
+        WHERE
+        album_id IN
+        <foreach collection="albumIds" item="albumId" open="(" close=")" separator=",">
+            #{albumId}
+        </foreach>
+    </select>
+
+    <select id="searchAlbums" resultType="com.xiaorui.beans.Album">
+        SELECT * FROM album a
+        <where>
+            <if test="query != null and query != ''">
+                AND (
+                <if test="searchByAlbumName != null and searchByAlbumName == true">
+                    a.album_name LIKE CONCAT('%', #{query}, '%')
+                </if>
+                <if test="searchByAlbumTranslation != null and searchByAlbumTranslation == true">
+                    OR a.album_name_tran LIKE CONCAT('%', #{query}, '%')
+                </if>
+                <if test="searchBySinger != null and searchBySinger == true">
+                    OR a.album_singer LIKE CONCAT('%', #{query}, '%')
+                </if>
+                <if test="searchByLanguage != null and searchByLanguage == true">
+                    OR a.album_language LIKE CONCAT('%', #{query}, '%')
+                </if>
+                )
+            </if>
+        </where>
+    </select>
+
+</mapper>

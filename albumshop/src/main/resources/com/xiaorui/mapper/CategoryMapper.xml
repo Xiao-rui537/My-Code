@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaorui.mapper.CategoryMapper">
+
+    <!-- 查询所有类别 -->
+    <select id="queryCategory" resultType="com.xiaorui.beans.Category">
+        SELECT * FROM category
+    </select>
+
+    <!-- 根据类别名称查询专辑 -->
+    <select id="queryAlbumsByCategory" resultType="com.xiaorui.beans.Album">
+        SELECT * FROM album WHERE album_category_id = #{id}
+    </select>
+
+    <!-- 添加类别 -->
+    <insert id="addCategoryType" parameterType="java.lang.String">
+        INSERT INTO category (cat_name) VALUES (#{name})
+    </insert>
+
+    <!-- 删除类别 -->
+    <delete id="deleteCategory" parameterType="java.lang.String">
+        DELETE FROM category WHERE cat_name = #{name}
+    </delete>
+
+    <!-- 检查类别名称是否已存在 -->
+    <select id="identifyCategory" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT COUNT(*) FROM category WHERE cat_name = #{name}
+    </select>
+
+    <!-- 获取分类名称，根据id -->
+    <select id="getCategoryById" parameterType="java.lang.Integer" resultType="com.xiaorui.beans.Category">
+        SELECT cat_name
+        FROM category
+        WHERE cat_id = #{id}
+    </select>
+
+</mapper>

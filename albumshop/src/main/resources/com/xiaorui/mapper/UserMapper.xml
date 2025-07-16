@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaorui.mapper.UserMapper">
+
+    <!-- 添加用户 -->
+    <insert id="addUser" parameterType="com.xiaorui.beans.User" useGeneratedKeys="true" keyProperty="user_id">
+        INSERT INTO user (user_account, user_name, user_password, user_gender, user_birth, user_hometown, user_phone, user_isadmin)
+        VALUES (#{user_account}, #{user_name}, #{user_password}, #{user_gender}, #{user_birth}, #{user_hometown}, #{user_phone}, #{user_isadmin})
+    </insert>
+
+    <!-- 判断用户名是否存在 -->
+    <select id="identify" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM user WHERE user_account = #{uname}
+    </select>
+
+    <!-- 根据用户名获取用户ID -->
+    <select id="getUidByUname" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT user_id FROM user WHERE user_account = #{uname}
+    </select>
+
+    <!-- 用户登录，根据用户名查询 -->
+    <select id="login" parameterType="java.lang.String" resultType="com.xiaorui.beans.User">
+        SELECT * FROM user WHERE user_account = #{uname}
+    </select>
+
+    <!-- 查询用户密码 -->
+    <select id="queryUpwd" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT user_password FROM user WHERE user_id = #{uid}
+    </select>
+
+    <!-- 分页查询用户 -->
+    <select id="queryUser" resultType="com.xiaorui.beans.User">
+        SELECT * FROM user
+    </select>
+
+    <!-- 查询用户总数 -->
+    <select id="queryCountOfUser" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM user
+    </select>
+
+    <!-- 删除用户 -->
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        DELETE FROM user WHERE user_id = #{uid}
+    </delete>
+
+    <!-- 根据用户ID查询用户 -->
+    <select id="queryUserByAccount" parameterType="java.lang.String" resultType="com.xiaorui.beans.User">
+        SELECT * FROM user WHERE user_account = #{userAccount}
+    </select>
+
+    <!-- 根据账号查询用户 -->
+    <select id="findUserByAccount" parameterType="java.lang.String" resultType="com.xiaorui.beans.User">
+        SELECT user_id, user_account, user_password, user_isadmin
+        FROM user
+        WHERE user_account = #{userAccount}
+    </select>
+
+    <!-- 根据用户ID更新用户信息 -->
+    <update id="updateUserById" parameterType="com.xiaorui.beans.User">
+        UPDATE user
+        SET
+            user_account = #{user_account},
+            user_name = #{user_name},
+            user_password = #{user_password},
+            user_gender = #{user_gender},
+            user_birth = #{user_birth},
+            user_hometown = #{user_hometown},
+            user_phone = #{user_phone},
+            user_isadmin = #{user_isadmin}
+        WHERE user_id = #{user_id}
+    </update>
+
+
+</mapper>

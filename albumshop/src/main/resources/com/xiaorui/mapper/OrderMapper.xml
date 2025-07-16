@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaorui.mapper.OrderMapper">
+
+    <!-- 添加订单 -->
+    <insert id="addOrder" parameterType="com.xiaorui.beans.Order" useGeneratedKeys="true" keyProperty="order_id">
+        INSERT INTO `order` (order_address, order_receiver, order_phone, order_user_account, order_pay_type, order_price, order_album_id)
+        VALUES (#{order_address}, #{order_receiver}, #{order_phone}, #{order_user_account}, #{order_pay_type}, #{order_price}, #{order_album_id})
+    </insert>
+
+    <!-- 根据订单ID删除订单 -->
+    <delete id="deleteOrder" parameterType="java.lang.Integer">
+        DELETE FROM `order` WHERE order_id = #{order_id}
+    </delete>
+
+    <!-- 根据用户ID查询订单 -->
+    <select id="queryOrderByAccount" parameterType="java.lang.String" resultType="com.xiaorui.beans.Order">
+        SELECT * FROM `order` WHERE order_user_account = #{order_account}
+    </select>
+
+    <!-- 查询所有订单 -->
+    <select id="queryOrder" resultType="com.xiaorui.beans.Order">
+        SELECT * FROM `order`
+    </select>
+
+    <!-- 查询订单总数 -->
+    <select id="queryCountOfOrder" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `order`
+    </select>
+
+    <!-- 更新订单 -->
+    <update id="updateOrder" parameterType="com.xiaorui.beans.Order">
+        UPDATE `order`
+        SET order_address=#{order_address},
+            order_receiver=#{order_receiver},
+            order_phone=#{order_phone},
+            order_user_account=#{order_user_account},
+            order_pay_type=#{order_pay_type},
+            order_price=#{order_price},
+            order_album_id=#{order_album_id}
+        WHERE order_id=#{order_id}
+    </update>
+
+
+
+</mapper>
