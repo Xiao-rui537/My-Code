@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2020.1 (64-bit)
+# SW Build 2902540 on Wed May 27 19:54:49 MDT 2020
+# IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
+# Start of session at: Sun Nov  3 22:55:07 2024
+# Process ID: 29788
+# Current directory: F:/aes_password/aes_password.runs/synth_1
+# Command line: vivado.exe -log AES_TOP.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source AES_TOP.tcl
+# Log file: F:/aes_password/aes_password.runs/synth_1/AES_TOP.vds
+# Journal file: F:/aes_password/aes_password.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source AES_TOP.tcl -notrace

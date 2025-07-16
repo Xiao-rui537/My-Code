@@ -1,0 +1,18 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../aes_password.srcs/sources_1/new/AES_TOP.v" \
+"../../../../aes_password.srcs/sources_1/new/aescipher.v" \
+"../../../../aes_password.srcs/sources_1/new/keygeneration.v" \
+"../../../../aes_password.srcs/sources_1/new/mixcolumn.v" \
+"../../../../aes_password.srcs/sources_1/new/roundlast.v" \
+"../../../../aes_password.srcs/sources_1/new/rounds.v" \
+"../../../../aes_password.srcs/sources_1/new/sbox.v" \
+"../../../../aes_password.srcs/sources_1/new/shiftrow.v" \
+"../../../../aes_password.srcs/sources_1/new/subbytes.v" \
+"../../../../aes_password.srcs/sim_1/new/ASD_TB.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
