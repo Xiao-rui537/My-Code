@@ -1,0 +1,57 @@
+SET NAMES utf8;
+
+CREATE DATABASE IF NOT EXISTS picture;
+USE `picture`;
+
+DROP TABLE IF EXISTS `paths`;
+CREATE TABLE `paths` (
+  `id` INT(11) NOT NULL,
+  `path` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE DATABASE IF NOT EXISTS feature;
+USE `feature`;
+
+DROP TABLE IF EXISTS `color`;
+CREATE TABLE `color` (
+  `id` INT(11) NOT NULL,
+  `color1` DOUBLE NOT NULL,
+  `color2` DOUBLE NOT NULL,
+  `color3` DOUBLE NOT NULL,
+  `color4` DOUBLE NOT NULL,
+  `color5` DOUBLE NOT NULL,
+  `color6` DOUBLE NOT NULL,
+  `color7` DOUBLE NOT NULL,
+  `color8` DOUBLE NOT NULL,
+  `color9` DOUBLE NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+DROP TABLE IF EXISTS `shape`;
+CREATE TABLE `shape` (
+  `id` INT(11) NOT NULL,
+  `shape1` DOUBLE NOT NULL,
+  `shape2` DOUBLE NOT NULL,
+  `shape3` DOUBLE NOT NULL,
+  `shape4` DOUBLE NOT NULL,
+  `shape5` DOUBLE NOT NULL,
+  `shape6` DOUBLE NOT NULL,
+  `shape7` DOUBLE NOT NULL,
+  `shape8` DOUBLE NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+DROP TABLE IF EXISTS `texture`;
+CREATE TABLE `texture` (
+  `id` INT(11) NOT NULL,
+  `texture1` DOUBLE DEFAULT NULL,
+  `texture2` DOUBLE DEFAULT NULL,
+  `texture3` DOUBLE DEFAULT NULL,
+  `texture4` DOUBLE DEFAULT NULL,
+  `texture5` DOUBLE DEFAULT NULL,
+  `texture6` DOUBLE DEFAULT NULL,
+  `texture7` DOUBLE DEFAULT NULL,
+  `texture8` DOUBLE DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
